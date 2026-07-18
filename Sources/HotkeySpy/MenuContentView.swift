@@ -13,7 +13,7 @@ struct MenuContentView: View {
                 Text("No modifier-combo key presses yet.")
                     .foregroundStyle(.secondary)
                     .font(.callout)
-                    .padding(.vertical, 4)
+                    .frame(maxWidth: .infinity, minHeight: 320, alignment: .center)
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 2) {
@@ -22,7 +22,7 @@ struct MenuContentView: View {
                         }
                     }
                 }
-                .frame(maxHeight: 320)
+                .frame(minHeight: 320, maxHeight: 480)
             }
             Divider()
             HStack {
@@ -32,7 +32,7 @@ struct MenuContentView: View {
             }
         }
         .padding(12)
-        .frame(width: 340)
+        .frame(width: 400)
     }
 
     @ViewBuilder private var statusLine: some View {
