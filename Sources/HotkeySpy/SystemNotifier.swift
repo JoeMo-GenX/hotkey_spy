@@ -4,6 +4,9 @@ import HotkeySpyCore
 
 final class SystemNotifier: EventNotifier {
     private let fallback: EventNotifier
+    // `available`/`authorized` are only ever touched on the main thread: `init` and
+    // this authorization callback's main-thread hop both write them, and `notify`
+    // (called on main by EventMonitor) is the only reader.
     private var authorized = false
     private var available = false
 
@@ -14,7 +17,7 @@ final class SystemNotifier: EventNotifier {
         available = true
         UNUserNotificationCenter.current()
             .requestAuthorization(options: [.alert, .sound]) { [weak self] granted, _ in
-                self?.authorized = granted
+                DispatchQueue.main.async { self?.authorized = granted }
             }
     }
 
