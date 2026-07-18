@@ -13,6 +13,8 @@ final class EventMonitor {
         self.notifier = notifier
     }
 
+    deinit { stop() }
+
     /// Returns false if the tap can't be created (usually: no Accessibility permission yet).
     @discardableResult
     func start() -> Bool {
