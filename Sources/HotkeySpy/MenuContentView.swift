@@ -4,6 +4,7 @@ import HotkeySpyCore
 struct MenuContentView: View {
     @EnvironmentObject var log: EventLog
     @EnvironmentObject var permissions: PermissionManager
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -27,6 +28,10 @@ struct MenuContentView: View {
             Divider()
             HStack {
                 Button("Clear log") { log.clear() }
+                Button("Settings…") {
+                    NSApp.activate(ignoringOtherApps: true)
+                    openWindow(id: "settings")
+                }
                 Spacer()
                 Button("Quit") { NSApplication.shared.terminate(nil) }
             }
