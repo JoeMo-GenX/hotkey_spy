@@ -149,10 +149,13 @@ hotkey-spy/
 └─ HotkeySpyTests/
 ```
 
-## GitHub setup needed from user (at implementation time)
+## GitHub
 
-- A repo (create via `gh` if authenticated, or user provides an empty repo URL).
-- Repo name + public visibility.
+- Repo: **https://github.com/JoeMo-GenX/hotkey_spy** (public, already created).
+- Push auth: `gh` CLI authenticated as `JoeMo-GenX` with `repo` + `workflow`
+  scopes. Repo is non-empty (initial README/license) — reconcile that first
+  commit on push rather than force-overwrite.
+- Naming: git repo `hotkey_spy`; Xcode product / bundle name `HotkeySpy`.
 - No secrets / paid account required; unsigned `.app` built locally, uploaded to
   a Release.
 
