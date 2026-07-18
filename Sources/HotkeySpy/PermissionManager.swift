@@ -6,6 +6,8 @@ final class PermissionManager: ObservableObject {
     @Published var isTrusted: Bool = AXIsProcessTrusted()
     private var timer: Timer?
 
+    deinit { timer?.invalidate() }
+
     /// Shows the system Accessibility prompt if not yet trusted.
     func promptIfNeeded() {
         let key = kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String
