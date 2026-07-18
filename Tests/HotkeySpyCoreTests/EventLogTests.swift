@@ -26,4 +26,18 @@ final class EventLogTests: XCTestCase {
         log.clear()
         XCTAssertTrue(log.events.isEmpty)
     }
+
+    func testLoweringLimitTrimsToNewest() {
+        let log = EventLog(limit: 5)
+        ["A", "B", "C", "D", "E"].forEach { log.add(event($0)) } // newest-first: E D C B A
+        log.limit = 2
+        XCTAssertEqual(log.events.map(\.combo), ["E", "D"])
+    }
+
+    func testRaisingLimitKeepsExisting() {
+        let log = EventLog(limit: 3)
+        ["A", "B", "C"].forEach { log.add(event($0)) }
+        log.limit = 10
+        XCTAssertEqual(log.events.map(\.combo), ["C", "B", "A"])
+    }
 }
