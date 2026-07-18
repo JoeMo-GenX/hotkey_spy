@@ -21,6 +21,10 @@ final class SettingsStore: ObservableObject {
     @Published var maxLogEntries: Int {
         didSet {
             let clamped = clampLogEntries(maxLogEntries)
+            if maxLogEntries != clamped {
+                maxLogEntries = clamped   // re-clamp in memory; didSet re-fires once, then no-ops
+                return
+            }
             defaults.set(clamped, forKey: PreferenceKey.maxLogEntries)
             log?.limit = clamped
         }
